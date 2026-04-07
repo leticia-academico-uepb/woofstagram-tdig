@@ -6,10 +6,7 @@ export default function WoofCard({ name, avatar }) {
     return (
         <View style={styles.card}>
             <Avatar source={{ uri: avatar }} size={80} />
-
-            <View style={styles.titleWrapper}>
-                <Title>{name}</Title>
-            </View>
+            <Title>{name}</Title>
         </View>
     );
 }
@@ -23,9 +20,6 @@ const styles = StyleSheet.create({
         padding: 15,
         alignItems: 'center',
         width: 110,
-    },
-    titleWrapper: {
-        alignItems: 'center',
-        marginTop: 10,
+        marginRight: 15,
     },
 });
