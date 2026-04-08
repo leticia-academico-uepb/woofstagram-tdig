@@ -7,7 +7,7 @@ export default function Title({ children }) {
 const styles = StyleSheet.create({
     title: {
         fontSize: 16,
-        color: '#058a24ff',
+        color: '#69B898',
         fontWeight: '600',
         marginTop: 8,
     },
