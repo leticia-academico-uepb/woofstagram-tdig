@@ -1,8 +1,8 @@
 import Heading from '@/components/Heading';
-import Title from '@/components/Title';
 import WoofCard from '@/components/WoofCard';
+import WoofPost from '@/components/WoofPost';
 import React from 'react';
-import { SafeAreaView, ScrollView, StyleSheet, Text, View } from 'react-native';
+import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
 
 export default function App() {
     const trendingPets = [
@@ -11,9 +11,19 @@ export default function App() {
         { id: 3, name: 'Thor', avatar: 'https://placedog.net/200/200?id=3' },
     ];
 
-    const articles = [
-        { id: 1, title: 'Como escolher brinquedos para cães' },
-        { id: 2, title: '5 dicas para alimentação saudável' },
+    const posts = [
+        {
+            id: 1,
+            image: 'https://placedog.net/300/200?id=10',
+            title: 'Como escolher brinquedos',
+            description: 'Veja as melhores opções para entreter seu cão.',
+        },
+        {
+            id: 2,
+            image: 'https://placedog.net/300/200?id=11',
+            title: 'Alimentação saudável',
+            description: 'Dicas para melhorar a saúde do seu pet.',
+        },
     ];
 
     return (
@@ -21,19 +31,16 @@ export default function App() {
             <ScrollView>
                 <Heading>Trending Woofs</Heading>
 
-                <View style={styles.petList}>
+                <ScrollView horizontal showsHorizontalScrollIndicator={false}>
                     {trendingPets.map((pet) => (
                         <WoofCard key={pet.id} name={pet.name} avatar={pet.avatar} />
                     ))}
-                </View>
+                </ScrollView>
 
                 <Heading>New Posts</Heading>
 
-                {articles.map((article) => (
-                    <View key={article.id} style={styles.articleCard}>
-                        <Title>{article.title}</Title>
-                        <Text style={styles.articleText}>Confira conteúdo exclusivo sobre pets e cuidados.</Text>
-                    </View>
+                {posts.map((post) => (
+                    <WoofPost key={post.id} image={post.image} title={post.title} description={post.description} />
                 ))}
             </ScrollView>
         </SafeAreaView>
@@ -44,21 +51,5 @@ const styles = StyleSheet.create({
     container: {
         flex: 1,
         padding: 20,
-    },
-    petList: {
-        flexDirection: 'row',
-        justifyContent: 'space-between',
-        marginBottom: 30,
-    },
-    articleCard: {
-        padding: 15,
-        borderWidth: 1,
-        borderColor: '#ddd',
-        borderRadius: 12,
-        marginBottom: 15,
-    },
-    articleText: {
-        marginTop: 5,
-        color: '#666',
     },
 });
