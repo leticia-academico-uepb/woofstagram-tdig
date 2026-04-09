@@ -2,9 +2,8 @@ import { Formik } from 'formik';
 import { Alert, Button, SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import * as Yup from 'yup';
 import InputField from '../components/InputField';
-import { addPet, setLoggedPet } from '../services/petsService'; // Importa as funções
+import { addPet, setLoggedPet } from '../services/petsService';
 
-// Schema de validação com Yup
 const validationSchema = Yup.object().shape({
     email: Yup.string().email('Digite um e-mail válido').required('E-mail é obrigatório'),
     password: Yup.string().min(6, 'A senha deve ter no mínimo 6 caracteres').required('Senha é obrigatória'),
@@ -19,7 +18,6 @@ const validationSchema = Yup.object().shape({
     favoriteToy: Yup.string().min(2, 'Brinquedo favorito deve ter no mínimo 2 caracteres').required('Brinquedo favorito é obrigatório'),
 });
 
-// Função para aplicar máscara de data
 const handleDateChange = (text, setFieldValue) => {
     let cleaned = text.replace(/\D/g, '');
 
@@ -47,19 +45,17 @@ export default function SignUpScreen({ navigation }) {
 
     const handleSubmitForm = async (values, { resetForm, setSubmitting }) => {
         try {
-            // Validar com Yup
             await validationSchema.validate(values, { abortEarly: false });
 
-            // Criar o pet (já salva no petsDatabase)
             const newPet = addPet({
                 email: values.email,
+                password: values.password,
                 petName: values.petName,
                 birthday: values.birthday,
                 breed: values.breed,
                 favoriteToy: values.favoriteToy,
             });
 
-            // Definir este pet como o pet logado
             setLoggedPet(newPet);
 
             Alert.alert('Sucesso', `Pet ${values.petName} cadastrado com sucesso!`);

@@ -32,3 +32,7 @@ export const logout = () => {
 export const getPetById = (id) => {
     return petsDatabase.find((pet) => pet.id === id);
 };
+
+export const getPetByEmail = (email) => {
+    return petsDatabase.find((pet) => pet.email === email);
+};
