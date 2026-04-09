@@ -1,50 +1,32 @@
-# Welcome to your Expo app 👋
+<a id="readme-topo"></a>
 
-This is an [Expo](https://expo.dev) project created with [`create-expo-app`](https://www.npmjs.com/package/create-expo-app).
+<div align="center">
 
-## Get started
+  <!--<img src="docs-readme/images/freecodecamp-logo.png" alt="Logo do FreeCodeCamp" width="170px"/>-->
 
-1. Install dependencies
+  <h1 align="center">Woofstagram, TDGI - 4° Semestre</h1>
 
-   ```bash
-   npm install
-   ```
+</div>
 
-2. Start the app
+<p align="center">
+    Desenvolvimento de App React Native, estilo instagram para pets, como avaliação da disciplina de Tecnologia de Desenvolvimento de Interface Gráfica.
+    <br/>
+    <a href="https://leticia-academico-uepb.github.io/projetos-unidade1-tdig/"><strong>Páginas Web Desenvolvidas»</strong></a>
+    <br/>
+</p>
 
-   ```bash
-   npx expo start
-   ```
+## Integrantes
 
-In the output, you'll find options to open the app in a
+<a id="integrantes"></a>
 
-- [development build](https://docs.expo.dev/develop/development-builds/introduction/)
-- [Android emulator](https://docs.expo.dev/workflow/android-studio-emulator/)
-- [iOS simulator](https://docs.expo.dev/workflow/ios-simulator/)
-- [Expo Go](https://expo.dev/go), a limited sandbox for trying out app development with Expo
+- [Letícia Barbosa M. da Cruz](https://github.com/daCruzZzLeticia)
 
-You can start developing by editing the files inside the **app** directory. This project uses [file-based routing](https://docs.expo.dev/router/introduction).
+## Projeto Desenvolvido
 
-## Get a fresh project
+### Formulário de Cadastro de Pets
 
-When you're ready, run:
+Implementação do fluxo de cadastro de pets em **React Native**, com foco em **componentes reutilizáveis, controle de estado com `useState`, validação de senha, responsividade com `ScrollView` e organização do formulário com Formik**.
 
-```bash
-npm run reset-project
-```
+Arquivos relacionados: [`register.js`](/app/register.js), [`InputField.js`](/components/InputField.js) ;
 
-This command will move the starter code to the **app-example** directory and create a blank **app** directory where you can start developing.
-
-## Learn more
-
-To learn more about developing your project with Expo, look at the following resources:
-
-- [Expo documentation](https://docs.expo.dev/): Learn fundamentals, or go into advanced topics with our [guides](https://docs.expo.dev/guides).
-- [Learn Expo tutorial](https://docs.expo.dev/tutorial/introduction/): Follow a step-by-step tutorial where you'll create a project that runs on Android, iOS, and the web.
-
-## Join the community
-
-Join our community of developers creating universal apps.
-
-- [Expo on GitHub](https://github.com/expo/expo): View our open source platform and contribute.
-- [Discord community](https://chat.expo.dev): Chat with Expo users and ask questions.
+<p align="right">(<a href="#readme-topo">voltar ao topo</a>)</p>
