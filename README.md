@@ -15,7 +15,7 @@
     <br/>
 </p>
 
-## Integrantes
+### Integrantes
 
 <a id="integrantes"></a>
 
