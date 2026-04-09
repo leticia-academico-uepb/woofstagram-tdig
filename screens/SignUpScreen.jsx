@@ -1,9 +1,8 @@
-import InputField from '@/components/InputField';
-import { router } from 'expo-router';
 import { Formik } from 'formik';
 import { Alert, Button, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import InputField from '../components/InputField';
 
-export default function Register() {
+export default function SignUpScreen({ navigation }) {
     const initialValues = {
         email: '',
         password: '',
@@ -21,7 +20,7 @@ export default function Register() {
         }
 
         Alert.alert('Sucesso', 'Cadastro realizado!');
-        router.replace('/(tabs)');
+        navigation.navigate('Main');
     };
 
     return (

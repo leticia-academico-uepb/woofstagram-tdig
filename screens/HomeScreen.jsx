@@ -1,10 +1,9 @@
-import Heading from '@/components/Heading';
-import WoofCard from '@/components/WoofCard';
-import WoofPost from '@/components/WoofPost';
-import React from 'react';
 import { SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import Heading from '../components/Heading';
+import WoofCard from '../components/WoofCard';
+import WoofPost from '../components/WoofPost';
 
-export default function App() {
+export default function HomeScreen() {
     return (
         <SafeAreaView style={styles.container}>
             <ScrollView>

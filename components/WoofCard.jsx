@@ -1,7 +1,6 @@
-import Avatar from '@/components/Avatar';
-import Title from '@/components/Title';
-import React from 'react';
 import { StyleSheet, View } from 'react-native';
+import Avatar from './Avatar';
+import Title from './Title';
 
 export default function WoofCard({ name, avatar }) {
     return (
