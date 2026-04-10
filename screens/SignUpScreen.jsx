@@ -42,7 +42,7 @@ export default function SignUpScreen({ navigation }) {
 
                         <InputField label="Brinquedo" value={values.favoriteToy} onChangeText={handleChange('favoriteToy')} />
 
-                        <Button title="Cadastrar" onPress={handleSubmit} />
+                        <Button title="Cadastrar" onPress={handleSubmit} color="#69B898" />
                     </ScrollView>
                 )}
             </Formik>
@@ -53,9 +53,10 @@ export default function SignUpScreen({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        padding: 20,
+        padding: 25,
     },
     form: {
+        paddingTop: 40,
         paddingBottom: 30,
     },
 });
