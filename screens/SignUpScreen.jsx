@@ -47,12 +47,12 @@ export default function SignUpScreen({ navigation }) {
 
     const handleSubmitForm = async (values, { resetForm, setSubmitting }) => {
         try {
-            // Validar com Yup
             await validationSchema.validate(values, { abortEarly: false });
 
-            // Criar o pet (já salva no petsDatabase)
+            // Criar o pet (incluindo a senha)
             const newPet = addPet({
                 email: values.email,
+                password: values.password, // <-- ADICIONE ESTA LINHA
                 petName: values.petName,
                 birthday: values.birthday,
                 breed: values.breed,

@@ -41,3 +41,8 @@ export const logout = () => {
 export const getPetById = (id) => {
     return petsDatabase.find((pet) => pet.id === id);
 };
+
+// Buscar pet por email
+export const getPetByEmail = (email) => {
+    return petsDatabase.find((pet) => pet.email === email);
+};
