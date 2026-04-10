@@ -1,5 +1,4 @@
-import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
-import Avatar from '../components/Avatar';
+import { Image, SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Heading from '../components/Heading';
 import Title from '../components/Title';
 import { getLoggedPet } from '../services/petsService';
@@ -25,7 +24,7 @@ export default function AccountScreen() {
             <Heading>Pet Profile</Heading>
 
             <View style={styles.profileCard}>
-                <Avatar source={{ uri: `https://placedog.net/200/200?id=${loggedPet.id}` }} size={100} />
+                <Image source={require('../assets/images/photo-icon.png')} style={styles.image} resizeMode="contain" />
 
                 <Title>{loggedPet.petName}</Title>
 
@@ -49,5 +48,11 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ddd',
         borderRadius: 12,
+    },
+    image: {
+        width: 250,
+        height: 250,
+        borderRadius: 40,
+        marginBottom: 15,
     },
 });

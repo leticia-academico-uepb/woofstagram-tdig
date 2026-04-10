@@ -42,7 +42,7 @@ export default function SignInScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image source={require('../assets/images/woofstagram-logo2.png')} style={styles.image} resizeMode="contain" />
+            <Image source={require('../assets/images/woofstagram-logo.png')} style={styles.image} resizeMode="contain" />
 
             <InputField label="E-mail" value={email} onChangeText={setEmail} />
 
