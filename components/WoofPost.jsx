@@ -1,5 +1,5 @@
-import Title from '@/components/Title';
 import { Image, StyleSheet, Text, View } from 'react-native';
+import Title from './Title';
 
 export default function WoofPost({ image, title, description }) {
     return (
