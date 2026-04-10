@@ -2,20 +2,37 @@ import { SafeAreaView, StyleSheet, Text, View } from 'react-native';
 import Avatar from '../components/Avatar';
 import Heading from '../components/Heading';
 import Title from '../components/Title';
+import { getLoggedPet } from '../services/petsService';
 
 export default function AccountScreen() {
+    // Pega o pet que está logado
+    const loggedPet = getLoggedPet();
+
+    if (!loggedPet) {
+        return (
+            <SafeAreaView style={styles.container}>
+                <Heading>Pet Profile</Heading>
+                <View style={styles.profileCard}>
+                    <Text>Nenhum pet logado</Text>
+                    <Text>Faça o cadastro de um pet</Text>
+                </View>
+            </SafeAreaView>
+        );
+    }
+
     return (
         <SafeAreaView style={styles.container}>
             <Heading>Pet Profile</Heading>
 
             <View style={styles.profileCard}>
-                <Avatar source={{ uri: 'https://placedog.net/200/200?id=50' }} size={100} />
+                <Avatar source={{ uri: `https://placedog.net/200/200?id=${loggedPet.id}` }} size={100} />
 
-                <Title>Rex</Title>
+                <Title>{loggedPet.petName}</Title>
 
-                <Text>Raça: Labrador</Text>
-                <Text>Brinquedo favorito: Bola</Text>
-                <Text>Aniversário: 10/05/2020</Text>
+                <Text>Raça: {loggedPet.breed}</Text>
+                <Text>Brinquedo favorito: {loggedPet.favoriteToy}</Text>
+                <Text>Aniversário: {loggedPet.birthday}</Text>
+                <Text>E-mail: {loggedPet.email}</Text>
             </View>
         </SafeAreaView>
     );

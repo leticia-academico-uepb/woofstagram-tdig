@@ -1,10 +1,8 @@
 import { Formik } from 'formik';
-import { Alert, Button, SafeAreaView, ScrollView, StyleSheet } from 'react-native';
+import { Alert, Button, SafeAreaView, ScrollView, StyleSheet, Text } from 'react-native';
 import * as Yup from 'yup';
 import InputField from '../components/InputField';
-
-// Estrutura simples para armazenar os pets cadastrados
-let petsDatabase = [];
+import { addPet, setLoggedPet } from '../services/petsService'; // Importa as funções
 
 // Schema de validação com Yup
 const validationSchema = Yup.object().shape({
@@ -21,6 +19,7 @@ const validationSchema = Yup.object().shape({
     favoriteToy: Yup.string().min(2, 'Brinquedo favorito deve ter no mínimo 2 caracteres').required('Brinquedo favorito é obrigatório'),
 });
 
+// Função para aplicar máscara de data
 const handleDateChange = (text, setFieldValue) => {
     let cleaned = text.replace(/\D/g, '');
 
@@ -48,25 +47,30 @@ export default function SignUpScreen({ navigation }) {
 
     const handleSubmitForm = async (values, { resetForm, setSubmitting }) => {
         try {
-            const newPet = {
-                id: Date.now(),
+            // Validar com Yup
+            await validationSchema.validate(values, { abortEarly: false });
+
+            // Criar o pet (já salva no petsDatabase)
+            const newPet = addPet({
                 email: values.email,
                 petName: values.petName,
                 birthday: values.birthday,
                 breed: values.breed,
                 favoriteToy: values.favoriteToy,
-                registeredAt: new Date().toISOString(),
-            };
+            });
 
-            petsDatabase.push(newPet);
-
-            console.log('Pets cadastrados:', petsDatabase);
+            // Definir este pet como o pet logado
+            setLoggedPet(newPet);
 
             Alert.alert('Sucesso', `Pet ${values.petName} cadastrado com sucesso!`);
             resetForm();
             navigation.navigate('Main');
         } catch (error) {
-            Alert.alert('Erro', 'Ocorreu um erro ao cadastrar o pet');
+            if (error instanceof Yup.ValidationError) {
+                Alert.alert('Erro de validação', error.errors[0]);
+            } else {
+                Alert.alert('Erro', 'Ocorreu um erro ao cadastrar o pet');
+            }
         } finally {
             setSubmitting(false);
         }
@@ -74,29 +78,14 @@ export default function SignUpScreen({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Formik initialValues={initialValues} onSubmit={handleSubmitForm} validationSchema={validationSchema} validateOnMount={false} validateOnChange={true} validateOnBlur={true}>
+            <Formik initialValues={initialValues} onSubmit={handleSubmitForm} validationSchema={validationSchema}>
                 {({ handleChange, handleBlur, handleSubmit, values, errors, touched, setFieldValue, isSubmitting }) => (
                     <ScrollView contentContainerStyle={styles.form}>
-                        <InputField
-                            label="E-mail"
-                            placeholder="seu@email.com"
-                            value={values.email}
-                            onChangeText={handleChange('email')}
-                            onBlur={handleBlur('email')}
-                            error={touched.email && errors.email}
-                            errorText={errors.email}
-                        />
+                        <InputField label="E-mail" placeholder="seu@email.com" value={values.email} onChangeText={handleChange('email')} onBlur={handleBlur('email')} />
+                        {touched.email && errors.email && <Text style={styles.errorText}>{errors.email}</Text>}
 
-                        <InputField
-                            label="Senha"
-                            placeholder="******"
-                            value={values.password}
-                            onChangeText={handleChange('password')}
-                            onBlur={handleBlur('password')}
-                            secureTextEntry
-                            error={touched.password && errors.password}
-                            errorText={errors.password}
-                        />
+                        <InputField label="Senha" placeholder="******" value={values.password} onChangeText={handleChange('password')} onBlur={handleBlur('password')} secureTextEntry />
+                        {touched.password && errors.password && <Text style={styles.errorText}>{errors.password}</Text>}
 
                         <InputField
                             label="Confirmar Senha"
@@ -105,19 +94,11 @@ export default function SignUpScreen({ navigation }) {
                             onChangeText={handleChange('confirmPassword')}
                             onBlur={handleBlur('confirmPassword')}
                             secureTextEntry
-                            error={touched.confirmPassword && errors.confirmPassword}
-                            errorText={errors.confirmPassword}
                         />
+                        {touched.confirmPassword && errors.confirmPassword && <Text style={styles.errorText}>{errors.confirmPassword}</Text>}
 
-                        <InputField
-                            label="Nome do Pet"
-                            placeholder="Ex: Rex"
-                            value={values.petName}
-                            onChangeText={handleChange('petName')}
-                            onBlur={handleBlur('petName')}
-                            error={touched.petName && errors.petName}
-                            errorText={errors.petName}
-                        />
+                        <InputField label="Nome do Pet" placeholder="Ex: Rex" value={values.petName} onChangeText={handleChange('petName')} onBlur={handleBlur('petName')} />
+                        {touched.petName && errors.petName && <Text style={styles.errorText}>{errors.petName}</Text>}
 
                         <InputField
                             label="Data de Nascimento"
@@ -127,29 +108,14 @@ export default function SignUpScreen({ navigation }) {
                             onBlur={handleBlur('birthday')}
                             keyboardType="numeric"
                             maxLength={10}
-                            error={touched.birthday && errors.birthday}
-                            errorText={errors.birthday}
                         />
+                        {touched.birthday && errors.birthday && <Text style={styles.errorText}>{errors.birthday}</Text>}
 
-                        <InputField
-                            label="Raça"
-                            placeholder="Ex: Labrador"
-                            value={values.breed}
-                            onChangeText={handleChange('breed')}
-                            onBlur={handleBlur('breed')}
-                            error={touched.breed && errors.breed}
-                            errorText={errors.breed}
-                        />
+                        <InputField label="Raça" placeholder="Ex: Labrador" value={values.breed} onChangeText={handleChange('breed')} onBlur={handleBlur('breed')} />
+                        {touched.breed && errors.breed && <Text style={styles.errorText}>{errors.breed}</Text>}
 
-                        <InputField
-                            label="Brinquedo Favorito"
-                            placeholder="Ex: Bolinha"
-                            value={values.favoriteToy}
-                            onChangeText={handleChange('favoriteToy')}
-                            onBlur={handleBlur('favoriteToy')}
-                            error={touched.favoriteToy && errors.favoriteToy}
-                            errorText={errors.favoriteToy}
-                        />
+                        <InputField label="Brinquedo Favorito" placeholder="Ex: Bolinha" value={values.favoriteToy} onChangeText={handleChange('favoriteToy')} onBlur={handleBlur('favoriteToy')} />
+                        {touched.favoriteToy && errors.favoriteToy && <Text style={styles.errorText}>{errors.favoriteToy}</Text>}
 
                         <Button title={isSubmitting ? 'Cadastrando...' : 'Cadastrar'} onPress={handleSubmit} color="#69B898" disabled={isSubmitting} />
                     </ScrollView>
@@ -167,5 +133,11 @@ const styles = StyleSheet.create({
     form: {
         paddingTop: 40,
         paddingBottom: 30,
+    },
+    errorText: {
+        color: 'red',
+        fontSize: 12,
+        marginBottom: 10,
+        marginLeft: 5,
     },
 });
